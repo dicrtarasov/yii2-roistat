@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 29.08.20 03:20:44
+ * @version 29.08.20 04:03:16
  */
 
 declare(strict_types = 1);
@@ -113,7 +113,7 @@ abstract class RoistatRequest extends JsonEntity
             throw new Exception('Ошибка запроса: ' . $response->statusCode . ': ' . $response->content);
         }
 
-        Yii::debug('Ответ: ' . $response->content);
+        Yii::debug('Ответ: ' . $response->content, __METHOD__);
 
         $rr = new RoistatResponse();
         $response->format = Client::FORMAT_JSON;
