@@ -3,11 +3,11 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 29.08.20 02:02:41
+ * @version 30.08.20 03:59:32
  */
 
 declare(strict_types = 1);
-namespace dicr\roistat;
+namespace dicr\roistat\client;
 
 use dicr\validate\ValidateException;
 
@@ -15,7 +15,7 @@ use function array_merge;
 use function is_array;
 
 /**
- * Абстрактный запрос данных.
+ * Абстрактный запрос данных к Roistat.
  */
 abstract class RoistatDataRequest extends RoistatRequest
 {
@@ -37,7 +37,7 @@ abstract class RoistatDataRequest extends RoistatRequest
     /**
      * @inheritDoc
      */
-    public function attributeEntities(): array
+    public function attributeEntities() : array
     {
         return array_merge(parent::attributeEntities(), [
             'sort' => RoistatSort::class

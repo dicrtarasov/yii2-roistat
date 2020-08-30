@@ -3,11 +3,11 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 29.08.20 01:12:20
+ * @version 30.08.20 08:34:31
  */
 
 declare(strict_types = 1);
-namespace dicr\roistat;
+namespace dicr\roistat\client;
 
 use dicr\helper\JsonEntity;
 
@@ -99,7 +99,7 @@ class RoistatFilter extends JsonEntity
     /**
      * @inheritDoc
      */
-    public function getJson(): array
+    public function getJson() : array
     {
         return [$this->field, $this->op, $this->value];
     }

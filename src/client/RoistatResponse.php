@@ -3,11 +3,11 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 29.08.20 01:47:12
+ * @version 30.08.20 03:59:32
  */
 
 declare(strict_types = 1);
-namespace dicr\roistat;
+namespace dicr\roistat\client;
 
 use dicr\helper\JsonEntity;
 

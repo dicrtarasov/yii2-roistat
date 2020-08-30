@@ -3,22 +3,24 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 29.08.20 04:03:16
+ * @version 30.08.20 07:37:40
  */
 
 declare(strict_types = 1);
-namespace dicr\roistat;
+namespace dicr\roistat\client;
 
 use dicr\helper\JsonEntity;
+use dicr\roistat\RoistatModule;
 use dicr\validate\ValidateException;
 use Yii;
 use yii\base\Exception;
+use yii\base\InvalidConfigException;
 use yii\httpclient\Client;
 
 use function strtolower;
 
 /**
- * Абстрактный запрос.
+ * Абстрактный запрос от сайта к Roistat.
  *
  * @property-read RoistatModule $module
  */
@@ -43,7 +45,7 @@ abstract class RoistatRequest extends JsonEntity
     /**
      * @inheritDoc
      */
-    public function attributeFields(): array
+    public function attributeFields() : array
     {
         // не переопределяем названия полей
         return [];
@@ -54,7 +56,7 @@ abstract class RoistatRequest extends JsonEntity
      *
      * @return RoistatModule
      */
-    public function getModule(): RoistatModule
+    public function getModule() : RoistatModule
     {
         return $this->_module;
     }
@@ -64,7 +66,7 @@ abstract class RoistatRequest extends JsonEntity
      *
      * @return string
      */
-    abstract public function url(): string;
+    abstract public function url() : string;
 
     /**
      * HTTP-метод
@@ -72,7 +74,7 @@ abstract class RoistatRequest extends JsonEntity
      * @return string
      * @noinspection PhpMethodMayBeStaticInspection
      */
-    public function method(): string
+    public function method() : string
     {
         return 'get';
     }
@@ -96,7 +98,12 @@ abstract class RoistatRequest extends JsonEntity
                 'Accept-Charset' => 'UTF-8'
             ]);
 
-        $json = ['key' => $this->_module->key] + $this->json;
+        // проверяем наличие apiKey для осуществления запросов к Roistat
+        if (empty($module->clientKey)) {
+            throw new InvalidConfigException('для запросов к Roistat необходимо указать clientKey');
+        }
+
+        $json = ['key' => $this->_module->clientKey] + $this->json;
 
         if (strtolower($this->method()) === 'get') {
             $request->setUrl([$this->url()] + $json);
