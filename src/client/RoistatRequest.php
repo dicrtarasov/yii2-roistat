@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 17:30:59
+ * @version 01.09.20 20:38:31
  */
 
 declare(strict_types = 1);
@@ -99,7 +99,7 @@ abstract class RoistatRequest extends JsonEntity
             ]);
 
         // проверяем наличие apiKey для осуществления запросов к Roistat
-        if (empty($module->clientKey)) {
+        if (empty($this->module->clientKey)) {
             throw new InvalidConfigException('для запросов к Roistat необходимо указать clientKey');
         }
 
