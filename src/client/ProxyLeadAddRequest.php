@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 20:06:32
+ * @version 01.09.20 22:51:39
  */
 
 declare(strict_types = 1);
@@ -36,17 +36,17 @@ class ProxyLeadAddRequest extends RoistatRequest
     /** @var string Название сделки */
     public $title;
 
-    /** @var string Комментарий к сделке */
-    public $comment;
-
-    /** @var string ФИО клиента */
+    /** @var ?string ФИО клиента */
     public $name;
 
-    /** @var string email клиента */
+    /** @var ?string номер телефона */
+    public $phone;
+
+    /** @var ?string email клиента */
     public $email;
 
-    /** @var string номер телефона */
-    public $phone;
+    /** @var ?string Комментарий к сделке */
+    public $comment;
 
     /**
      * @var ?string Способ создания сделки (необязательный параметр).
@@ -110,18 +110,26 @@ class ProxyLeadAddRequest extends RoistatRequest
             ['roistat', 'default', 'value' => RoistatModule::clientVisit()],
             ['roistat', 'required'],
 
-            [['title', 'comment', 'name'], 'trim'],
-            [['title', 'comment', 'name'], 'required'],
+            ['title', 'trim'],
+            ['title', 'required'],
+
+            ['name', 'trim'],
+            ['name', 'default'],
+
+            ['phone', 'trim'],
+            ['phone', 'default'],
+            ['phone', PhoneValidator::class, 'formatOnValidate' => true, 'country' => 8],
 
             ['email', 'trim'],
             ['email', 'default'],
             ['email', 'email'],
 
-            ['phone', PhoneValidator::class],
-            ['phone', 'required'],
-            ['phone', 'filter', 'filter' => static function (int $phone) {
-                return PhoneValidator::format($phone);
+            [['email', 'phone'], 'required', 'when' => function () {
+                return empty($this->email) && empty($this->phone);
             }],
+
+            ['comment', 'trim'],
+            ['comment', 'default'],
 
             ['orderCreationMethod', 'default'],
 
