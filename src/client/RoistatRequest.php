@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 08:34:32
+ * @version 01.09.20 17:30:59
  */
 
 declare(strict_types = 1);
@@ -114,17 +114,18 @@ abstract class RoistatRequest extends JsonEntity
         }
 
         Yii::debug('Запрос: ' . $request->toString(), __METHOD__);
-
         $response = $request->send();
+        Yii::debug('Ответ: ' . $response->toString(), __METHOD__);
+
         if (! $response->isOk) {
-            throw new Exception('Ошибка запроса: ' . $response->statusCode . ': ' . $response->content);
+            throw new Exception('Ошибка запроса: ' . $response->toString());
         }
 
-        Yii::debug('Ответ: ' . $response->content, __METHOD__);
-
-        $rr = new RoistatResponse();
         $response->format = Client::FORMAT_JSON;
-        $rr->setJson($response->data);
+
+        $rr = new RoistatResponse([
+            'json' => $response->data
+        ]);
 
         if ($rr->status !== RoistatResponse::STATUS_SUCCESS) {
             throw new Exception('Ошибка запроса: ' . $rr->error);

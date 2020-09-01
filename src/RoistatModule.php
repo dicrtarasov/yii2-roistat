@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 07:42:35
+ * @version 01.09.20 17:35:01
  */
 
 declare(strict_types = 1);
@@ -12,7 +12,9 @@ namespace dicr\roistat;
 use dicr\roistat\client\ProxyLeadAddRequest;
 use dicr\roistat\client\ProxyLeadCommentRequest;
 use dicr\roistat\client\RoistatRequest;
+use dicr\roistat\client\RoistatResponse;
 use Yii;
+use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\base\Module;
 use yii\httpclient\Client;
@@ -91,6 +93,16 @@ class RoistatModule extends Module
     }
 
     /**
+     * Возвращает номер визита roistat_visit клиента
+     *
+     * @return string
+     */
+    public static function clientVisit() : string
+    {
+        return $_COOKIE['roistat_visit'] ?? '';
+    }
+
+    /**
      * Создает запрос.
      *
      * @param array $config
@@ -104,42 +116,34 @@ class RoistatModule extends Module
     }
 
     /**
-     * Запрос на создание лида.
+     * Запрос на создание прокси-лида (который затем из Roistat передается в CRM).
      *
-     * @param array $config
-     * @return ProxyLeadAddRequest
-     * @throws InvalidConfigException
+     * @param array $config конфигурация ProxyLeadAddRequest
+     * @return RoistatResponse
+     * @throws Exception
      */
-    public function createProxyLeadAddRequest(array $config) : ProxyLeadAddRequest
+    public function addProxyLead(array $config) : RoistatResponse
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->createRequest(array_merge([
+        $request = $this->createRequest(array_merge([
             'class' => ProxyLeadAddRequest::class
         ], $config));
+
+        return $request->send();
     }
 
     /**
-     * Запрос на добавление комментарию лиду.
+     * Запрос на добавление комментарию прокси-лиду.
      *
-     * @param array $config
-     * @return ProxyLeadCommentRequest
-     * @throws InvalidConfigException
+     * @param array $config конфиг ProxyLeadCommentRequest
+     * @return RoistatResponse
+     * @throws Exception
      */
-    public function createProxyLeadCommentRequest(array $config) : ProxyLeadCommentRequest
+    public function commentProxyLead(array $config) : RoistatResponse
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->createRequest(array_merge([
+        $request = $this->createRequest(array_merge([
             'class' => ProxyLeadCommentRequest::class
         ], $config));
-    }
 
-    /**
-     * Возвращает номер визита roistat_visit клиента
-     *
-     * @return string
-     */
-    public static function clientVisit() : string
-    {
-        return $_COOKIE['roistat_visit'] ?? '';
+        return $request->send();
     }
 }

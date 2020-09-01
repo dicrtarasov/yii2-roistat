@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 08:34:32
+ * @version 01.09.20 17:36:07
  */
 
 declare(strict_types = 1);
@@ -13,7 +13,7 @@ use dicr\roistat\RoistatModule;
 use dicr\validate\ValidateException;
 use Throwable;
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\base\Exception;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\Response;
@@ -93,9 +93,7 @@ class WebhookController extends Controller
      *
      * @param string $action
      * @return ?CallbackResponse
-     * @throws BadRequestHttpException
-     * @throws ServerErrorHttpException
-     * @throws InvalidConfigException
+     * @throws Exception
      */
     protected function handleAction(string $action) : ?CallbackResponse
     {

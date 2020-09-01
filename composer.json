@@ -21,11 +21,6 @@
             "dicr\\roistat\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "dicr\\roistat\\": "tests/"
-        }
-    },
     "minimum-stability": "RC",
     "prefer-stable": true,
     "require": {

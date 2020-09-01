@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 08:34:32
+ * @version 01.09.20 17:36:52
  */
 
 declare(strict_types = 1);
@@ -107,7 +107,7 @@ class RoistatFilter extends JsonEntity
     /**
      * @inheritDoc
      */
-    public function setJson(array $json)
+    public function setJson(array $json, bool $skipUnknown = true)
     {
         $this->field = array_shift($json);
         $this->op = array_shift($json);
