@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 20:00:57
+ * @version 01.09.20 20:06:32
  */
 
 declare(strict_types = 1);
@@ -114,7 +114,7 @@ class ProxyLeadAddRequest extends RoistatRequest
             [['title', 'comment', 'name'], 'required'],
 
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'default'],
             ['email', 'email'],
 
             ['phone', PhoneValidator::class],
