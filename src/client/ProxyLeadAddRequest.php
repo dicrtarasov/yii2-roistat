@@ -3,13 +3,14 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 08:34:32
+ * @version 01.09.20 20:00:57
  */
 
 declare(strict_types = 1);
 namespace dicr\roistat\client;
 
 use dicr\http\UrlInfo;
+use dicr\roistat\RoistatModule;
 use dicr\validate\PhoneValidator;
 
 use function is_array;
@@ -106,6 +107,7 @@ class ProxyLeadAddRequest extends RoistatRequest
     {
         return [
             ['roistat', 'trim'],
+            ['roistat', 'default', 'value' => RoistatModule::clientVisit()],
             ['roistat', 'required'],
 
             [['title', 'comment', 'name'], 'trim'],
