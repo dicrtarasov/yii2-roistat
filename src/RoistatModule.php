@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 20:36:13
+ * @version 30.10.20 21:11:37
  */
 
 declare(strict_types = 1);
@@ -64,7 +64,7 @@ class RoistatModule extends Module
      * @inheritDoc
      * @throws InvalidConfigException
      */
-    public function init()
+    public function init() : void
     {
         parent::init();
 

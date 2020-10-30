@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 22:51:39
+ * @version 30.10.20 21:11:37
  */
 
 declare(strict_types = 1);
@@ -103,7 +103,7 @@ class ProxyLeadAddRequest extends RoistatRequest
     /**
      * @inheritDoc
      */
-    public function rules()
+    public function rules() : array
     {
         return [
             ['roistat', 'trim'],
@@ -124,7 +124,7 @@ class ProxyLeadAddRequest extends RoistatRequest
             ['email', 'default'],
             ['email', 'email'],
 
-            [['email', 'phone'], 'required', 'when' => function () {
+            [['email', 'phone'], 'required', 'when' => function () : bool {
                 return empty($this->email) && empty($this->phone);
             }],
 

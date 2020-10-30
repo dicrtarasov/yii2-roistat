@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 07:14:50
+ * @version 30.10.20 20:54:14
  */
 
 declare(strict_types = 1);
@@ -28,7 +28,7 @@ class MessageCallbackRequest extends CallbackRequest
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public static function attributeFields() : array
     {
         return [
             // не преобразовываем поле в snake_case

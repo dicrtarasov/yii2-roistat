@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 08:34:32
+ * @version 30.10.20 21:11:37
  */
 
 declare(strict_types = 1);
@@ -36,7 +36,7 @@ class ExportCallbackResponse extends SchemeCallbackResponse
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public static function attributeEntities() : array
     {
         return array_merge(parent::attributeEntities(), [
             'orders' => [OrderEntity::class],
@@ -47,7 +47,7 @@ class ExportCallbackResponse extends SchemeCallbackResponse
     /**
      * @inheritDoc
      */
-    public function rules()
+    public function rules() : array
     {
         return array_merge(parent::rules(), [
             ['orders', 'required'],

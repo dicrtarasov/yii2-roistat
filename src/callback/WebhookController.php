@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 17:36:07
+ * @version 30.10.20 21:12:30
  */
 
 declare(strict_types = 1);
@@ -51,7 +51,7 @@ class WebhookController extends Controller
      * @return Response
      * @throws Throwable
      */
-    public function actionIndex(string $action, string $user, string $token)
+    public function actionIndex(string $action, string $user, string $token) : Response
     {
         try {
             // проверяем авторизацию
@@ -120,7 +120,7 @@ class WebhookController extends Controller
             call_user_func($this->module->callbackHandler, $request) : null;
 
         // проверяем ответ
-        if (! empty($response) && (! $response instanceof CallCallbackResponse)) {
+        if ($response !== null && (! $response instanceof CallCallbackResponse)) {
             throw new ServerErrorHttpException('Некорректный ответ: ' . gettype($response));
         }
 
@@ -128,7 +128,7 @@ class WebhookController extends Controller
             throw new ServerErrorHttpException('', 0, new ValidateException($response));
         }
 
-        Yii::debug('Ответ: ' . ($response ? $response->json : '<пустой>'), __METHOD__);
+        Yii::debug('Ответ: ' . ($response->json ?? '<пустой>'), __METHOD__);
 
         return $response;
     }

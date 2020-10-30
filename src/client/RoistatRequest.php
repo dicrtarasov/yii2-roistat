@@ -3,13 +3,13 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 20:38:31
+ * @version 30.10.20 21:11:37
  */
 
 declare(strict_types = 1);
 namespace dicr\roistat\client;
 
-use dicr\helper\JsonEntity;
+use dicr\json\JsonEntity;
 use dicr\roistat\RoistatModule;
 use dicr\validate\ValidateException;
 use Yii;
@@ -45,7 +45,7 @@ abstract class RoistatRequest extends JsonEntity
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public static function attributeFields() : array
     {
         // не переопределяем названия полей
         return [];
@@ -85,7 +85,7 @@ abstract class RoistatRequest extends JsonEntity
      * @return RoistatResponse (переопределяется в наследнике)
      * @throws Exception
      */
-    public function send()
+    public function send() : RoistatResponse
     {
         if (! $this->validate()) {
             throw new ValidateException($this);

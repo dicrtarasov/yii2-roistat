@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.08.20 08:34:32
+ * @version 30.10.20 20:54:03
  */
 
 declare(strict_types = 1);
@@ -108,7 +108,7 @@ class LeadHunterCallbackRequest extends CallbackRequest
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public static function attributeFields() : array
     {
         return array_merge(parent::attributeFields(), [
             'roistatParam1' => 'roistat_param_1',

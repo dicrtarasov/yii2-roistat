@@ -3,13 +3,13 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 01.09.20 17:36:52
+ * @version 30.10.20 21:11:37
  */
 
 declare(strict_types = 1);
 namespace dicr\roistat\client;
 
-use dicr\helper\JsonEntity;
+use dicr\json\JsonEntity;
 
 use function array_shift;
 use function in_array;
@@ -68,7 +68,7 @@ class RoistatFilter extends JsonEntity
     /**
      * @inheritDoc
      */
-    public function rules()
+    public function rules() : array
     {
         return [
             ['field', 'required'],
@@ -107,7 +107,7 @@ class RoistatFilter extends JsonEntity
     /**
      * @inheritDoc
      */
-    public function setJson(array $json, bool $skipUnknown = true)
+    public function setJson(array $json, bool $skipUnknown = true) : void
     {
         $this->field = array_shift($json);
         $this->op = array_shift($json);
