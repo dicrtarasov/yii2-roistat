@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.10.20 20:54:08
+ * @version 22.01.21 16:47:33
  */
 
 declare(strict_types = 1);
@@ -37,7 +37,7 @@ class MarketingCallbackRequest extends CallbackRequest
     /**
      * @inheritDoc
      */
-    public static function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'visit' => VisitInfo::class,

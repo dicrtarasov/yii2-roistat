@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.10.20 21:11:37
+ * @version 22.01.21 16:47:33
  */
 
 declare(strict_types = 1);
@@ -124,9 +124,7 @@ class ProxyLeadAddRequest extends RoistatRequest
             ['email', 'default'],
             ['email', 'email'],
 
-            [['email', 'phone'], 'required', 'when' => function () : bool {
-                return empty($this->email) && empty($this->phone);
-            }],
+            [['email', 'phone'], 'required', 'when' => fn(): bool => empty($this->email) && empty($this->phone)],
 
             ['comment', 'trim'],
             ['comment', 'default'],

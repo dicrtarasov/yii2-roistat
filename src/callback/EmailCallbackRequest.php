@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 30.10.20 20:53:31
+ * @version 22.01.21 16:47:33
  */
 
 declare(strict_types = 1);
@@ -12,7 +12,7 @@ namespace dicr\roistat\callback;
 use function array_merge;
 
 /**
- * Webhook от сервиса "Емайлтрекинг"
+ * Webhook от сервиса "Емайл-трекинг"
  *
  * @link https://help.roistat.com/features/Emeiltreking/
  */
@@ -111,7 +111,7 @@ class EmailCallbackRequest extends CallbackRequest
     /**
      * @inheritDoc
      */
-    public static function attributeFields() : array
+    public function attributeFields(): array
     {
         return array_merge(parent::attributeFields(), [
             'roistatParam1' => 'roistat_param_1',
