@@ -3,16 +3,16 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 22.01.21 16:47:33
+ * @version 18.03.21 02:32:10
  */
 
 declare(strict_types = 1);
 namespace dicr\roistat\client;
 
+use dicr\helper\Log;
 use dicr\json\JsonEntity;
 use dicr\roistat\RoistatModule;
 use dicr\validate\ValidateException;
-use Yii;
 use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\httpclient\Client;
@@ -56,7 +56,7 @@ abstract class RoistatRequest extends JsonEntity
      *
      * @return RoistatModule
      */
-    public function getModule() : RoistatModule
+    public function getModule(): RoistatModule
     {
         return $this->_module;
     }
@@ -66,7 +66,7 @@ abstract class RoistatRequest extends JsonEntity
      *
      * @return string
      */
-    abstract public function url() : string;
+    abstract public function url(): string;
 
     /**
      * HTTP-метод
@@ -74,7 +74,7 @@ abstract class RoistatRequest extends JsonEntity
      * @return string
      * @noinspection PhpMethodMayBeStaticInspection
      */
-    public function method() : string
+    public function method(): string
     {
         return 'get';
     }
@@ -85,7 +85,7 @@ abstract class RoistatRequest extends JsonEntity
      * @return RoistatResponse (переопределяется в наследнике)
      * @throws Exception
      */
-    public function send() : RoistatResponse
+    public function send(): RoistatResponse
     {
         if (! $this->validate()) {
             throw new ValidateException($this);
@@ -113,15 +113,18 @@ abstract class RoistatRequest extends JsonEntity
                 ->setFormat(Client::FORMAT_JSON);
         }
 
-        Yii::debug('Запрос: ' . $request->toString(), __METHOD__);
+        Log::debug('Запрос: ' . $request->toString(), __METHOD__);
         $response = $request->send();
-        Yii::debug('Ответ: ' . $response->toString(), __METHOD__);
+        Log::debug('Ответ: ' . $response->toString(), __METHOD__);
 
         if (! $response->isOk) {
             throw new Exception('Ошибка запроса: ' . $response->toString());
         }
 
         $response->format = Client::FORMAT_JSON;
+        if (empty($response->data)) {
+            throw new Exception('Некорректный ответ');
+        }
 
         $rr = new RoistatResponse([
             'json' => $response->data
